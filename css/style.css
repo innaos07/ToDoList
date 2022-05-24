@@ -1,0 +1,212 @@
+body {
+    min-width: 1250px;
+    margin: 0;
+    padding: 0;
+
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+   /* background: #e5e5e5;*/
+
+}
+
+
+
+.title {
+    margin: 0;
+    padding: 0;
+}
+
+.todo-list {
+    display: block;
+    width: 800px;
+    
+    
+    border: 2px solid #e3e3e3; 
+}
+
+.todo-list__block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+    width: 800px;
+    height: 250px;
+    border: 2px solid green;
+}
+
+.todo-list__text {
+    display: block;
+    box-sizing: border-box;
+    width: 600px;
+    margin: 20px;
+    padding: 20px;
+    resize: none;
+    border: 2px solid green;
+    height: 210px;
+}
+
+.todo-list__text:focus {
+    outline: none;
+}
+
+.todo-list__btn {
+    width: 80px;
+    height: 30px;
+}
+
+.todo-list__area {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+
+    min-height: 500px;
+    width: 800px;
+    border: 2px solid green;
+    padding-bottom: 50px;
+    
+}
+
+.todo-list__nav-list {
+    display: flex;
+    
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.todo-list__nav-item {
+    box-sizing: border-box;
+
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.todo-list__list-all {
+    display: flex;
+    
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+    width: 800px;
+    list-style: none;
+}
+
+.todo-list__list-all--hidden {
+    display: none;
+}
+
+
+
+.todo-list__elem {
+    position: relative;
+
+    width: 600px;
+
+    /*padding: 20px;*/
+    margin-bottom: 20px;
+    border: 2px solid green;
+
+}
+
+
+.todo-list__elem--deleted {
+    background: red;
+}
+
+.todo-list__elem--deleted--hidden {
+    display: none;
+}
+
+
+.todo-list__elem-note {
+    display: block;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    width: 350px;
+
+
+    padding: 20px;  
+}
+
+.todo-list__elem-note--completed {
+    opacity: 0.3;
+    text-decoration: line-through;
+}
+
+
+.todo-list__elem-note--edit{
+    display: block;
+    word-wrap: break-word;
+    resize: none;
+    border: none;
+    box-sizing: border-box;
+    width: 350px;
+
+
+    padding: 20px; 
+
+}
+
+.todo-list__btn-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+}
+
+.todo-list__btn-save {
+    position: absolute;
+    top: 10px;
+    right: 180px;
+}
+
+.todo-list__btn-save--hidden {
+    display: none;
+}
+
+.todo-list__btn-completed {
+    position: absolute;
+    top: 10px;
+    right: 80px;
+    width: 70px;
+}
+
+.todo-list__btn-edit {
+    position: absolute;
+    top: 10px;
+    right: 180px;
+    width: 70px;
+
+}
+
+
+.todo-list__btn-edit--hidden {
+    display: none;
+}
+
+\
+
+
+
+
+.todo-list__btn-clean {
+    width: 80px;
+     top: 10px;
+
+
+}
+
+
+
+
+
