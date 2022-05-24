@@ -3,31 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link  rel="stylesheet" href="css/style.css">
+    <link rel="preload" href="fonts/Roboto-Regular.woff2" as="font">
+     <link  rel="stylesheet" href="css/style.css">
+
     <title>Document</title>
 </head>
 
-<header>
-    <div class="container">
-        <h1 class="title">My to-do list</h1>
-    </div>
-</header>
+
 
 <body>
-    <main class="container">
+    <main>
         <section class="todo-list">
 
-            <div class="todo-list__block">
-               
-                    <textarea class="todo-list__text">
+            <div class="todo-list__wrapper">
+                <div class="container">
+                    <div class="todo-list__wrapper-top">
+
+                        <h1 class="title">ToDo List</h1>
+
+
+                        <div class="todo-list__block">
+                                
+                                <textarea class="todo-list__text">
+                                    
+                                </textarea> 
+                                <button class="todo-list__btn-add" id='btn-add' type="button"  >ADD</button>   
+                        </div>
+
                         
-                    </textarea> 
-                    <button class="btn todo-list__btn-add" id='btn-add' type="button"  >ADD</button>
-                
-                
+                    </div>
+                </div>
             </div>
 
-            <div class="todo-list__area">
+            <div class="todo-list__area container">
                 <ul class="todo-list__nav-list">
                     <li class="todo-list__nav-item">
                         <a href='#' class="todo-list__nav-link" data-state="all">All</a>
@@ -72,7 +80,8 @@
         let todolistElem;
         let buttonClean = document.querySelector('.todo-list__btn-clean');
         let navList = document.querySelector('.todo-list__nav-list');
-        let statusAll;
+        let statusFilter = 'all';
+       
       
 
 
@@ -119,20 +128,26 @@
 
 
             function createTodolistElem () {
-                console.log('createElement')
-                // todolistElem = document.createElement('li');
+                
+
+                console.log('status filter before createElement', statusFilter)
+                if(statusFilter == 'deleted' || statusFilter == 'completed'){
+
+                    console.log('statusFilter are completed or deleted ')
+                    list.innerHTML = '';
+                    filterStatusAll();
+
+                }
+
                 todolistElem = document.createElement('li');
                 todolistNote = document.createElement('span')
-
-                
 
                 todolistElem.className = "todo-list__elem";
                 todolistNote.className = 'todo-list__elem-note'
 
                 todolistNote.innerHTML = todoText.value;
                 todolistElem.dataset.stateElem = 'active';
-
-
+                console.log('*** ADD NEW WHEN DELETED');
                 list.append(todolistElem);
                 todolistElem.append(todolistNote)
 
@@ -144,6 +159,10 @@
 
                 makeTodoObj();
                 saveLocalStorage();
+
+                console.log('createElement end')
+
+   
 
             }
 
@@ -161,8 +180,6 @@
             }
 
 
-
-
             function saveLocalStorage() {
          
                 localStorage['todo'] = JSON.stringify(todoObj);
@@ -178,7 +195,7 @@
                     if(key == 'initialId'){
                         continue;
                     }
-                    console.log('load key localStorage', key);
+                    // console.log('load key localStorage', key);
                     todolistElem = document.createElement('li');
                     todolistElem.innerHTML = todoObj[key].elem;
                     todolistElem.className = "todo-list__elem";
@@ -191,7 +208,7 @@
                     if(todoObj[key].state == 'deleted'){
                         todolistElem.classList.add('todo-list__elem--deleted');
                         todolistElem.classList.add('todo-list__elem--deleted--hidden')
-                        console.log(todolistElem)
+                        console.log('renser delete elem ',todolistElem)
 
                     }
                       
@@ -202,6 +219,7 @@
 
                     list.append(todolistElem);
                 }
+                console.log('render end , obj' , todoObj)
             }
 
            
@@ -411,76 +429,104 @@
                 list.innerHTML = '';
 
                 if(target.dataset.state == 'all'){
+                    console.log('click all')
 
-                    console.log('all')
-                    
-                    let todoObjAll = {};
-
-                    for(let key in todoObj){
-
-                        if(todoObj[key].state == 'active' || todoObj[key].state == 'completed'){
-                            todoObjAll[key] = todoObj[key];
-                        }
-                    }
-                    console.log('objAll', todoObjAll)
-                    renderTodoList(todoObjAll)
-
+                    filterStatusAll()
                   
                  
                 } else if(target.dataset.state == 'active') {
-                    console.log('click active')
+                    console.log('starus active')
 
-                    let todoObjActive = {};
-
-                    for (let key in todoObj){
-
-                        if(todoObj[key].state == 'active'){
-                            todoObjActive[key] = todoObj[key];
-                        }
-                     
-                   }
-
-                   console.log('objActive', todoObjActive)
-                   renderTodoList(todoObjActive)
+                    filterStatusActive ();
                       
                 } else if(target.dataset.state == 'completed'){
                     console.log('click completed')
 
-                    let todoObjCompleted = {};
+                    filterStatusCompleted() 
 
-                    for (let key in todoObj){
-
-                        if(todoObj[key].state == 'completed'){
-
-                            todoObjCompleted[key] = todoObj[key];
-                        }
-                     
-                   }
-
-                   console.log('objCompleted', todoObjCompleted)
-                   renderTodoList(todoObjCompleted)
 
                 } else if(target.dataset.state == 'delete'){
 
                     console.log('click deleted');
 
-                    
-
-                    for (let key in todoObj){
-                        if(todoObj[key].state == 'deleted'){
-                            todolistElem = document.createElement('li');
-                            todolistElem.innerHTML = todoObj[key].elem;
-                            todolistElem.className = "todo-list__elem";
-                            todolistElem.classList.add('todo-list__elem--deleted');
-
-                            list.append(todolistElem);
-                        }
-                    } 
-
+                    filterStatusDeleted ()
                 }
                 
             })
 
+            function filterStatusAll () {
+
+                
+                let todoObjAll = {};
+
+                for(let key in todoObj){
+
+                    if(todoObj[key].state == 'active' || todoObj[key].state == 'completed'){
+                        todoObjAll[key] = todoObj[key];
+                    }
+                }
+                console.log('objAll', todoObjAll)
+                renderTodoList(todoObjAll)
+                statusFilter = 'all';
+                console.log('status end',statusFilter)
+
+            }
+
+            function filterStatusActive () {
+
+                let todoObjActive = {};
+
+                for (let key in todoObj){
+
+                    if(todoObj[key].state == 'active'){
+                        todoObjActive[key] = todoObj[key];
+                    }
+                 
+               }
+
+               console.log('objActive', todoObjActive)
+               renderTodoList(todoObjActive)
+               statusFilter = 'active';
+               console.log('starus end', statusFilter)
+
+            }
+
+            function filterStatusCompleted () {
+
+                let todoObjCompleted = {};
+
+                for (let key in todoObj){
+
+                    if(todoObj[key].state == 'completed'){
+
+                        todoObjCompleted[key] = todoObj[key];
+                    }
+                 
+               }
+
+               console.log('objCompleted', todoObjCompleted)
+               renderTodoList(todoObjCompleted)
+               statusFilter = 'completed';
+               console.log('starus end ', statusFilter)
+            }
+
+            function filterStatusDeleted () {
+
+                for (let key in todoObj){
+                    if(todoObj[key].state == 'deleted'){
+                        todolistElem = document.createElement('li');
+                        todolistElem.innerHTML = todoObj[key].elem;
+                        todolistElem.className = "todo-list__elem";
+                        todolistElem.classList.add('todo-list__elem--deleted');
+
+                        list.append(todolistElem);
+                    }
+                } 
+
+                statusFilter = 'deleted';
+                console.log('starus end', statusFilter)
+
+            }
 
 
 
