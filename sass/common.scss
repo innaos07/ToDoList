@@ -30,7 +30,7 @@
 
 
 body {
-    min-width: 1250px;
+    
     margin: 0;
     padding: 0;
 
@@ -42,8 +42,22 @@ body {
 }
 
 .container {
-    min-width: 1200px;
+    width: 100%;
+    min-width: 320px;
     margin: 0 auto;
+
+        @media (min-width: $tablet-width) {
+        width: 768px;
+    }
+
+        @media (min-width: $desktop-width) {
+        width: 1250px;
+    }
  
 
+}
+
+.todo-list {
+    background-color: #fcf8fa;
+    // width: 100%;
 }

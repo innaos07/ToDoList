@@ -66,8 +66,17 @@
                 if(statusFilter == 'deleted' || statusFilter == 'completed'){
 
                     console.log('statusFilter are completed or deleted ')
+                    
+                     for (let item of navList.querySelectorAll('.todo-list__nav-link--current')){
+                        console.log('current item when createElement', item)
+                        item.classList.remove('todo-list__nav-link--current')
+                    }
+                    
+
+
                     list.innerHTML = '';
                     filterStatusAll();
+
 
                 }
 
@@ -363,18 +372,24 @@
                 if(target.dataset.state == 'all'){
                     console.log('click all')
 
-                    filterStatusAll()
+                    filterStatusAll();
+
+                    setCurrentNavLink (target);
                   
                  
                 } else if(target.dataset.state == 'active') {
                     console.log('starus active')
 
                     filterStatusActive ();
+                    
+                    setCurrentNavLink (target);
                       
                 } else if(target.dataset.state == 'completed'){
                     console.log('click completed')
 
-                    filterStatusCompleted() 
+                    filterStatusCompleted()
+                    
+                    setCurrentNavLink (target);
 
 
                 } else if(target.dataset.state == 'delete'){
@@ -382,6 +397,7 @@
                     console.log('click deleted');
 
                     filterStatusDeleted ()
+                    setCurrentNavLink (target);
                 }
                 
             })
@@ -458,6 +474,16 @@
                 statusFilter = 'deleted';
                 console.log('starus end', statusFilter)
 
+            }
+
+            function  setCurrentNavLink (target){
+                    
+                for (let item of navList.querySelectorAll('.todo-list__nav-link--current')){
+                    console.log('current', item)
+                    item.classList.remove('todo-list__nav-link--current')
+                }
+
+                target.classList.add('todo-list__nav-link--current');
             }
 
 

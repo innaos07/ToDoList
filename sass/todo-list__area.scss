@@ -1,43 +1,112 @@
 @import 'variables';
 
-.todo-list__btn {
 
-    width: 80px;
-    height: 30px;
-}
 
 .todo-list__area {
-    display: flex;
+    // display: flex;
 
+    // flex-direction: column;
+    // align-items: center;
+
+    // min-height: 500px;
+    
+    // width: 100%;
+    // border: 2px solid green;
+    padding-bottom: 50px;
+   
+}
+
+.todo-list__wrapper-bottom {
+    display: flex;
     flex-direction: column;
     align-items: center;
 
-    min-height: 500px;
-    margin-top: 80px;
-    width: 800px;
-    border: 2px solid green;
-    padding-bottom: 50px;
-
+   
+    border:2px solid green;
+    padding-top: 20px;
+    padding-right: 5%;
+    padding-left: 5%;
+    @media (min-width: $tablet-width) {
+        
+        padding-right: 30px;
+        padding-left: 30px;
+        border:2px solid green;
+    }
 
     
 }
 
 .todo-list__nav-list {
-    display: flex;
-    
+    display: flex; 
+    justify-content: space-around;
     margin: 0;
-
     padding: 0;
-
     list-style: none;
+    width: 100%;
+
+     @media (min-width: $tablet-width) {
+        
+    }
+    @media (min-width: $desktop-width) {
+        width: 800px;
+        
+    }
+
 }
 
-.todo-list__nav-item {
+
+
+.todo-list__nav-link {
+    display: block;
     box-sizing: border-box;
+    text-decoration: none;
 
     padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    color: #2c1a4d;
+    // border: 1px solid green;
+    @media (min-width: $tablet-width) {
+            // padding-left: 30px;
+            // padding-right: 30px;
+    }
+
+
+
+    &:hover,
+    &:focus {
+        color: #59359a;
+        font-weight: 700;
+        transition: all 0.3s;
+    }
+    &:active{
+        font-weight: 700;
+        opacity: 0.3;
+
+        transition: all 0.3s;
+    }
+
+
+}
+
+.todo-list__nav-link--current {
+    border-bottom: 1px solid #561435;
+    color: #561435;
+    padding-bottom: 0;
+    font-weight: 700;
+
+   
+    transition: all 0.5s;
+    
+    &:hover,
+    &:focus,
+    &:active {
+       border-bottom: 1px solid #561435;
+       color: #561435; 
+    }
+  
+
 }
 
 .todo-list__list-all {

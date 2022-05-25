@@ -17,46 +17,53 @@
 
             <div class="todo-list__wrapper">
                 <div class="container">
+
                     <div class="todo-list__wrapper-top">
 
                         <h1 class="title">ToDo List</h1>
 
-
-                        <div class="todo-list__block">
+                       
                                 
                             <textarea class="todo-list__text">
                                 
                             </textarea> 
-                            <button class="todo-list__btn-add" id='btn-add' type="button"  >ADD</button>   
-                        </div>
+
+                            <button class="todo-list__btn-add" id='btn-add' type="button">
+                                ADD
+                            </button>   
+                       
 
                         
                     </div>
                 </div>
             </div>
 
-            <div class="todo-list__area container">
-                <ul class="todo-list__nav-list">
-                    <li class="todo-list__nav-item">
-                        <a href='#' class="todo-list__nav-link" data-state="all">All</a>
- 
-                    </li>
-                    <li class="todo-list__nav-item">
-                        <a href='#' class="todo-list__nav-link" data-state='active'>Active</a>
-                    </li>
-                    <li class="todo-list__nav-item">
-                        <a href='#' class="todo-list__nav-link" data-state='completed'>Completed</a>
-                    </li>
-                    <li class="todo-list__nav-item">
-                        <a href='#' class="todo-list__nav-link" data-state='delete'>Deleted</a>
-                    </li>
-                </ul>
+            <div class="todo-list__area">
+                <div class="container">
+                    <div class="todo-list__wrapper-bottom">
+                        <ul class="todo-list__nav-list">
+                            <li class="todo-list__nav-item">
+                                <a href='#' class="todo-list__nav-link todo-list__nav-link--current" data-state="all">All</a>
+         
+                            </li>
+                            <li class="todo-list__nav-item">
+                                <a href='#' class="todo-list__nav-link" data-state='active'>Active</a>
+                            </li>
+                            <li class="todo-list__nav-item">
+                                <a href='#' class="todo-list__nav-link" data-state='completed'>Completed</a>
+                            </li>
+                            <li class="todo-list__nav-item">
+                                <a href='#' class="todo-list__nav-link" data-state='delete'>Deleted</a>
+                            </li>
+                        </ul>
 
-                <ul class="todo-list__list-all">
-                   
-                </ul>
+                        <ul class="todo-list__list-all">
+                           
+                        </ul>
 
-                <button  class="todo-list__btn-clean" type="button">clean</button>
+                        <button  class="todo-list__btn-clean" type="button">clean</button>
+                    </div>
+                </div>
                 
             </div>
             
