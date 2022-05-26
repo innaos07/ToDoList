@@ -67,13 +67,6 @@
 
                     console.log('statusFilter are completed or deleted ')
                     
-                     for (let item of navList.querySelectorAll('.todo-list__nav-link--current')){
-                        console.log('current item when createElement', item)
-                        item.classList.remove('todo-list__nav-link--current')
-                    }
-                    
-
-
                     list.innerHTML = '';
                     filterStatusAll();
 
@@ -300,11 +293,16 @@
                 editArea.value = todolistNote.textContent;
 
                 editArea.style.width = todolistNote.offsetWidth +'px';
+                editArea.style.height = todolistNote.offsetHeight +'px';
+
+
                 console.log('todolistNote.offsetWeight',todolistNote.offsetWidth)
 
 
                 todolistNote.replaceWith(editArea);
                 editArea.focus();
+              
+                
                 console.log('add editArea');
 
             }
@@ -364,9 +362,11 @@
                 localStorage.clear('todo')
                 
                 for (let key in todoObj){
+                    // console.log(key)
                     delete todoObj[key];
 
                 }
+                todoObj.initialId = 0;
                 console.log(todoObj)
 
             }
@@ -383,7 +383,7 @@
 
                     filterStatusAll();
 
-                    setCurrentNavLink (target);
+                    // setCurrentNavLink (target);
                   
                  
                 } else if(target.dataset.state == 'active') {
@@ -391,22 +391,22 @@
 
                     filterStatusActive ();
                     
-                    setCurrentNavLink (target);
+                    // setCurrentNavLink (target);
                       
                 } else if(target.dataset.state == 'completed'){
                     console.log('click completed')
 
                     filterStatusCompleted()
                     
-                    setCurrentNavLink (target);
+                    // setCurrentNavLink (target);
 
 
-                } else if(target.dataset.state == 'delete'){
+                } else if(target.dataset.state == 'deleted'){
 
                     console.log('click deleted');
 
                     filterStatusDeleted ()
-                    setCurrentNavLink (target);
+                    
                 }
                 
             })
@@ -425,7 +425,8 @@
                 console.log('objAll', todoObjAll)
                 renderTodoList(todoObjAll)
                 statusFilter = 'all';
-                console.log('status end',statusFilter)
+                console.log('status end:',statusFilter)
+                setNavFilter(statusFilter)
 
             }
 
@@ -445,6 +446,7 @@
                renderTodoList(todoObjActive)
                statusFilter = 'active';
                console.log('starus end', statusFilter)
+               setNavFilter(statusFilter)
 
             }
 
@@ -465,6 +467,7 @@
                renderTodoList(todoObjCompleted)
                statusFilter = 'completed';
                console.log('starus end ', statusFilter)
+               setNavFilter(statusFilter)
             }
 
             function filterStatusDeleted () {
@@ -484,18 +487,37 @@
 
                 statusFilter = 'deleted';
                 console.log('starus end', statusFilter)
-
+                setNavFilter(statusFilter)
             }
 
-            function  setCurrentNavLink (target){
+            // function  setCurrentNavLink (target){
                     
-                for (let item of navList.querySelectorAll('.todo-list__nav-link--current')){
-                    console.log('current', item)
-                    item.classList.remove('todo-list__nav-link--current')
-                }
+            //     for (let item of navList.querySelectorAll('.todo-list__nav-link--current')){
+            //         console.log('status need to deleted', item)
+            //         item.classList.remove('todo-list__nav-link--current')
+            //     }
 
-                target.classList.add('todo-list__nav-link--current');
+            //     target.classList.add('todo-list__nav-link--current');
+            // }
+            function  setNavFilter(statusFilter){
+               
+
+                for (let item of navList.querySelectorAll('.todo-list__nav-link--current')) {
+                    console.log('current neet to deleted', item)
+                    item.classList.remove('todo-list__nav-link--current')
+                }  
+
+                for (let item of navList.querySelectorAll('.todo-list__nav-link')) {
+                    console.log(item)
+                    console.log(item.dataset.state)
+                    if(statusFilter == item.dataset.state) {
+                        console.log('we have status :', statusFilter, item.dataset.state)
+                        item.classList.add('todo-list__nav-link--current')
+                    }
+                }
+               
             }
+            
 
 
 
