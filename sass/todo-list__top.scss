@@ -7,7 +7,7 @@
 } 
 
 .todo-list__wrapper-top {
-   
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,13 +16,16 @@
     padding-left: 5%;
     padding-bottom: 50px;
 
-    border:2px solid green;
+    // border:2px solid green;
 
     @media (min-width: $tablet-width) {
-        
+        width: 708px;
         padding-right: 30px;
         padding-left: 30px;
-        border:2px solid green;
+       
+    }
+    @media (min-width: $desktop-width) {
+        width: 1140px;
     }
    
 
@@ -58,6 +61,7 @@
     resize: none;
     
     font: inherit;
+    // box-shadow: 0 0 8px -2px rgba(0,0,0,0.2);
 
     @media (min-width: $desktop-width) {
         width: 800px;

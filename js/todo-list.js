@@ -143,7 +143,8 @@
                     console.log('load state', todoObj[key].state )
 
                     if(todoObj[key].state == 'completed'){
-                        todolistElem.querySelector('.todo-list__elem-note ').classList.add('todo-list__elem-note--completed') 
+                        todolistElem.querySelector('.todo-list__elem-note').classList.add('todo-list__elem-note--completed');
+                        todolistElem.querySelector('.todo-list__btn-completed').classList.add('todo-list__btn-completed--press'); 
                     }
 
                     if(todoObj[key].state == 'deleted'){
@@ -187,7 +188,7 @@
             function createButtonDeleteElem (todolistElem) {
                 buttonDelete = document.createElement('button');
                 buttonDelete.className = 'todo-list__btn-delete';
-                buttonDelete.innerHTML = "delete";
+                // buttonDelete.innerHTML = "delete";
 
                 todolistElem.append(buttonDelete);
 
@@ -197,7 +198,7 @@
             function createButtonCompleted(todolistElem) {
                 buttonCompleted = document.createElement('button');
                 buttonCompleted.className = 'todo-list__btn-completed';
-                buttonCompleted.innerHTML = "completed"
+                // buttonCompleted.innerHTML = "";
                 
                 todolistElem.append(buttonCompleted);
             }
@@ -205,7 +206,7 @@
             function createButtonEdit(todolistElem) {
                 buttonEdit = document.createElement('button');
                 buttonEdit.className = 'todo-list__btn-edit';
-                buttonEdit.innerHTML = "edit";
+                // buttonEdit.innerHTML = "edit";
                 buttonEdit.dataset.buttonEdit = 'edit';
 
                 
@@ -215,7 +216,7 @@
               function createButtonSave(todoElemEdit ) {
                 buttonSave = document.createElement('button');
                 buttonSave.className = 'todo-list__btn-save';
-                buttonSave.innerHTML = "save";
+                // buttonSave.innerHTML = "save";
                 buttonSave.dataset.buttonSave = 'save';
                 
                 todoElemEdit.append(buttonSave);
@@ -238,25 +239,32 @@
                 console.log(todolistElem)
                
                 if (target.className == 'todo-list__btn-delete'){
+                    let buttonDelete = target;
 
                     console.log('delete')
                      console.log(todolistElem)
 
                     todolistElem.classList.add('todo-list__elem--deleted');
                     todolistElem.classList.add('todo-list__elem--deleted--hidden')
+                    buttonDelete.remove();
+                    todolistElem.querySelector('.todo-list__btn-completed').remove();
+
 
                     deleteTodoObjElemStorage(todolistElem);
 
                  
                 } else if (target.className == 'todo-list__btn-completed'){
 
+
                     console.log('completed')
+                    let buttonCompleted = target;
 
                     
                     todolistElem.dataset.stateElem = 'completed';
-                    todolistElem.querySelector('.todo-list__elem-note ').classList.add('todo-list__elem-note--completed') 
+                    todolistElem.querySelector('.todo-list__elem-note').classList.add('todo-list__elem-note--completed') 
+                    buttonCompleted.classList.add('todo-list__btn-completed--press')
+                    completedTodoElemStorage(todolistElem); 
 
-                    completedTodoElemStorage(todolistElem);               
 
                 } else if (target.className == 'todo-list__btn-edit'){
 
@@ -291,7 +299,8 @@
                 editArea.className = 'todo-list__elem-note--edit';
                 editArea.value = todolistNote.textContent;
 
-                editArea.style.height = todoElemEdit.offsetHeight +'px';
+                editArea.style.width = todolistNote.offsetWidth +'px';
+                console.log('todolistNote.offsetWeight',todolistNote.offsetWidth)
 
 
                 todolistNote.replaceWith(editArea);
@@ -466,6 +475,8 @@
                         todolistElem.innerHTML = todoObj[key].elem;
                         todolistElem.className = "todo-list__elem";
                         todolistElem.classList.add('todo-list__elem--deleted');
+                        todolistElem.querySelector('.todo-list__btn-delete').remove();
+                        todolistElem.querySelector('.todo-list__btn-completed').remove();
 
                         list.append(todolistElem);
                     }
