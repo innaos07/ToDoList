@@ -9,6 +9,7 @@
 
         let todoText = document.querySelector('.todo-list__text');
         let list = document.querySelector('.todo-list__list-all');
+
         let todolistElem;
         let buttonClean = document.querySelector('.todo-list__btn-clean');
         let navList = document.querySelector('.todo-list__nav-list');
@@ -74,7 +75,7 @@
                 }
 
                 todolistElem = document.createElement('li');
-                todolistNote = document.createElement('span')
+                let todolistNote = document.createElement('span')
 
                 todolistElem.className = "todo-list__elem";
                 todolistNote.className = 'todo-list__elem-note'
@@ -137,7 +138,7 @@
 
                     if(todoObj[key].state == 'completed'){
                         todolistElem.querySelector('.todo-list__elem-note').classList.add('todo-list__elem-note--completed');
-                        todolistElem.querySelector('.todo-list__btn-completed').classList.add('todo-list__btn-completed--press'); 
+                        todolistElem.querySelector('.todo-list__btn-completed').className = 'todo-list__btn-active'; 
                     }
 
                     if(todoObj[key].state == 'deleted'){
@@ -179,7 +180,7 @@
           
 
             function createButtonDeleteElem (todolistElem) {
-                buttonDelete = document.createElement('button');
+                let buttonDelete = document.createElement('button');
                 buttonDelete.className = 'todo-list__btn-delete';
                 // buttonDelete.innerHTML = "delete";
 
@@ -189,15 +190,16 @@
             }
 
             function createButtonCompleted(todolistElem) {
-                buttonCompleted = document.createElement('button');
+                let buttonCompleted = document.createElement('button');
                 buttonCompleted.className = 'todo-list__btn-completed';
                 // buttonCompleted.innerHTML = "";
-                
+                console.log('create button completed')
+
                 todolistElem.append(buttonCompleted);
             }
 
             function createButtonEdit(todolistElem) {
-                buttonEdit = document.createElement('button');
+                let buttonEdit = document.createElement('button');
                 buttonEdit.className = 'todo-list__btn-edit';
                 // buttonEdit.innerHTML = "edit";
                 buttonEdit.dataset.buttonEdit = 'edit';
@@ -206,15 +208,22 @@
                 todolistElem.append(buttonEdit);
             }
             
-              function createButtonSave(todoElemEdit ) {
-                buttonSave = document.createElement('button');
+              function createButtonSave(todoElemEdit) {
+                let buttonSave = document.createElement('button');
                 buttonSave.className = 'todo-list__btn-save';
                 // buttonSave.innerHTML = "save";
                 buttonSave.dataset.buttonSave = 'save';
                 
                 todoElemEdit.append(buttonSave);
+            }
 
-             
+            function createButtonActive(todolistElem) {
+                let buttonActive = document.createElement('button');
+                buttonActive.className = 'todo-list__btn-active';
+
+                todolistElem.append(buttonActive)
+                console.log('create button active')
+
             }
    
 
@@ -223,10 +232,10 @@
 
             function onClickTodoElem() {
 
-                let target = event.target.closest('.todo-list__btn-delete, .todo-list__btn-completed, .todo-list__btn-edit, .todo-list__btn-save');
+                let target = event.target.closest('.todo-list__btn-delete, .todo-list__btn-completed, .todo-list__btn-edit, .todo-list__btn-save, .todo-list__btn-active');
                 if(!target) return;
 
-                console.log(target)
+                // console.log('target', target)
 
                 let todolistElem = event.target.closest('.todo-list__elem')
                 console.log(todolistElem)
@@ -234,7 +243,7 @@
                 if (target.className == 'todo-list__btn-delete'){
                     let buttonDelete = target;
 
-                    console.log('delete')
+                    console.log('click delete')
                      console.log(todolistElem)
 
                     todolistElem.classList.add('todo-list__elem--deleted');
@@ -249,19 +258,21 @@
                 } else if (target.className == 'todo-list__btn-completed'){
 
 
-                    console.log('completed')
+                    console.log('click completed')
                     let buttonCompleted = target;
 
                     
                     todolistElem.dataset.stateElem = 'completed';
                     todolistElem.querySelector('.todo-list__elem-note').classList.add('todo-list__elem-note--completed') 
-                    buttonCompleted.classList.add('todo-list__btn-completed--press')
+                    createButtonActive(todolistElem)
+                    buttonCompleted.remove()
+                    // buttonCompleted.classList.add('todo-list__btn-completed--press')
                     completedTodoElemStorage(todolistElem); 
 
 
                 } else if (target.className == 'todo-list__btn-edit'){
 
-                    console.log('edit')  
+                    console.log(' click edit')  
                     let buttonEdit = target;
                   
                     createButtonSave(todolistElem);
@@ -271,13 +282,26 @@
                 }  else if (target.className == 'todo-list__btn-save'){
                     let buttonSave = target;
                    
-                    console.log('save');
+                    console.log('click save');
                     saveTodoNoteEdited(todolistElem); 
 
                     buttonSave.remove();
                     createButtonEdit(todolistElem);
 
                     editedTodoElemStorage(todolistElem);     
+
+                } 
+                else if (target.className == 'todo-list__btn-active') {
+                    console.log('click active')
+                    let buttonActive = target;
+                    todolistElem.dataset.stateElem = 'active';
+
+                    createButtonCompleted(todolistElem)
+                    todolistElem.querySelector('.todo-list__elem-note').classList.remove('todo-list__elem-note--completed') 
+
+                    buttonActive.remove()
+                    activeTodoElemStorage(todolistElem);
+
 
                 }
 
@@ -329,15 +353,25 @@
             }
 
 
-            function completedTodoElemStorage (todoElemCompleted) {
+            function completedTodoElemStorage(todoElemCompleted) {
                    
                 let keyElem = todoElemCompleted.dataset.keyObj;
 
                 todoObj[keyElem].state = 'completed';
                 saveLocalStorage();
 
-                console.log('statecompleted',todoObj[keyElem].state) 
+                console.log('state completed in localStorage',todoObj[keyElem].state) 
                 console.log('completedObj', todoObj);
+            }
+
+            function activeTodoElemStorage(todoElemActive) {
+
+                let keyElem = todoElemActive.dataset.keyObj;
+
+                todoObj[keyElem].state = 'active';
+                saveLocalStorage();
+                console.log('state active in localStorage',todoObj[keyElem].state) 
+                console.log('activeObj', todoObj);
             }
 
             function deleteTodoObjElemStorage(todoElemDelete) {
