@@ -197,6 +197,7 @@
     resize: none;
     border: none;
     outline: none;
+    overflow: hidden;
 
 }
 
@@ -336,7 +337,7 @@
 
 .todo-list__btn-delete {
     position: absolute;
-       bottom: 15px;
+    bottom: 15px;
     left: 70px;
     width: 25px;
     height: 25px;
@@ -366,28 +367,48 @@
     }
 }
 
+.todo-list__btn-return {
+    position: absolute;
+    bottom: 15px;
+    left: 70px;
+    width: 25px;
+    height: 25px;
 
+    background-color: #ffffff;
+    border: none;
+    background-image: url('../svg/todolist-return.svg');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+
+        &:hover,
+    &:focus {
+
+        background-image: url('../svg/todolist-return-hover.svg');
+        background-repeat: no-repeat;
+        transition: all 0.3s;
+    }
+    &:active {
+        opacity: 0.8;
+    }
+        @media (min-width: $tablet-width) {
+        bottom: auto;
+        left: auto;
+        top: 30px;
+        right: 20px;
+    }
+}
 
 .todo-list__btn-save--hidden {
     display: none;
 }
 
-
-
-
-
 .todo-list__btn-edit--hidden {
     display: none;
 }
 
-
-
-
-
-
 .todo-list__btn-clean {
     width: 80px;
-     top: 10px;
-
+    top: 10px;
 
 }
