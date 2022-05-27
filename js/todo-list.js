@@ -416,21 +416,7 @@
 
             }
 
-            buttonClean.onclick = function(event) {
-                console.log('clean')
-               
-                list.innerHTML = '';
-                localStorage.clear('todo')
-                
-                for (let key in todoObj){
-                    // console.log(key)
-                    delete todoObj[key];
-
-                }
-                todoObj.initialId = 0;
-                console.log(todoObj)
-
-            }
+      
 
             navList.addEventListener('click', function(event){
                 let target = event.target.closest('.todo-list__nav-link');
@@ -550,12 +536,37 @@
 
 
                         list.append(todolistElem);
+
+                        if(todolistElem) {
+                            let buttonClean = document.querySelector('.todo-list__btn-clean');
+
+                            buttonClean.classList.add('todo-list__btn-clean--hidden');
+                            buttonClean.addEventListener('click', cleanDeleteElem )
+                                                    }
                     }
                 } 
 
                 statusFilter = 'deleted';
                 console.log('starus end:', statusFilter)
                 setNavFilter(statusFilter)
+            }
+
+           function cleanDeleteElem() {
+                console.log('clean')
+               
+                list.innerHTML = '';
+                    for (let key in todoObj){
+                        console.log(key)
+                        delete todoObj[key];
+                    }
+
+                todoObj.initialId = 0;
+                console.log('todoObj after cleaned',todoObj) 
+                saveLocalStorage()
+                
+                document.querySelector('.todo-list__btn-clean').classList.remove('todo-list__btn-clean--hidden')
+                console.log('cleaned end')
+
             }
 
          

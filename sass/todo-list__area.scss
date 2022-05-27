@@ -329,12 +329,6 @@
 
 }
 
-
-
-
-
-
-
 .todo-list__btn-delete {
     position: absolute;
     bottom: 15px;
@@ -408,7 +402,28 @@
 }
 
 .todo-list__btn-clean {
-    width: 80px;
+    box-sizing: border-box ;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    // width: 80px;
     top: 10px;
+    border: none;
+    background-color: #fcf8fa;
+    color: #59359a;
+    border-radius: 100px;
+   
+    font: inherit;
+    font-style: italic;
+    text-align: center;
+    vertical-align: middle;
+    // text-transform: uppercase;
+    cursor: pointer;
+    display: none;
 
+} 
+
+.todo-list__btn-clean--hidden {
+    display: block;
 }
