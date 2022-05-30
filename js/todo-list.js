@@ -41,6 +41,7 @@
                 }   
             
             function onClickButtonAdd () {
+
                 console.log('add')
                 addTodoListElem()
                 
@@ -77,7 +78,7 @@
                 let todolistNote = document.createElement('span')
 
                 todolistElem.className = "todo-list__elem";
-                todolistNote.className = 'todo-list__elem-note'
+                todolistNote.className = 'todo-list__elem-note';
 
                 todolistNote.innerHTML = todoText.value;
                 todolistElem.dataset.stateElem = 'active';
@@ -95,8 +96,6 @@
                 saveLocalStorage();
 
                 console.log('createElement end')
-
-   
 
             }
 
@@ -178,25 +177,24 @@
              
            
             function createButtonDeleteElem (todolistElem) {
+
                 let buttonDelete = document.createElement('button');
                 buttonDelete.className = 'todo-list__btn-delete';
-                // buttonDelete.innerHTML = "delete";
 
                 todolistElem.append(buttonDelete);
-
-
             }
 
             function createButtonCompleted(todolistElem) {
+
                 let buttonCompleted = document.createElement('button');
                 buttonCompleted.className = 'todo-list__btn-completed';
-                // buttonCompleted.innerHTML = "";
                 console.log('create button completed')
 
                 todolistElem.append(buttonCompleted);
             }
 
             function createButtonEdit(todolistElem) {
+
                 let buttonEdit = document.createElement('button');
                 buttonEdit.className = 'todo-list__btn-edit';
                 // buttonEdit.innerHTML = "edit";
@@ -207,15 +205,16 @@
             }
             
               function createButtonSave(todoElemEdit) {
+
                 let buttonSave = document.createElement('button');
                 buttonSave.className = 'todo-list__btn-save';
-                // buttonSave.innerHTML = "save";
                 buttonSave.dataset.buttonSave = 'save';
                 
                 todoElemEdit.append(buttonSave);
             }
 
             function createButtonActive(todolistElem) {
+
                 let buttonActive = document.createElement('button');
                 buttonActive.className = 'todo-list__btn-active';
 
@@ -225,6 +224,7 @@
             }
 
             function createButtonReturn(todolistElem) {
+
                 let buttonReturn = document.createElement('button');
                 buttonReturn.className = 'todo-list__btn-return';
 
@@ -242,42 +242,32 @@
                 let target = event.target.closest('.todo-list__btn-delete, .todo-list__btn-completed, .todo-list__btn-edit, .todo-list__btn-save, .todo-list__btn-active, .todo-list__btn-return');
                 if(!target) return;
 
-                // console.log('target', target)
-
                 let todolistElem = event.target.closest('.todo-list__elem')
                 console.log(todolistElem)
                
                 if (target.className == 'todo-list__btn-delete'){
+
                     let buttonDelete = target;
 
                     console.log('click delete')
-                     console.log(todolistElem)
+                    console.log(todolistElem)
 
-                    // todolistElem.classList.add('todo-list__elem--deleted');
                     todolistElem.classList.add('todo-list__elem--deleted--hidden')
-                    // buttonDelete.remove();
-                    // createButtonReturn(todolistElem);
-                    
-                    // todolistElem.querySelector('.todo-list__btn-active').remove();
-                    
 
                     deleteTodoObjElemStorage(todolistElem);
                     console.log('elem delete')
-
                  
                 } else if (target.className == 'todo-list__btn-completed'){
 
-
                     console.log('click completed')
                     let buttonCompleted = target;
-
                     
                     todolistElem.dataset.stateElem = 'completed';
                     todolistElem.querySelector('.todo-list__elem-note').classList.add('todo-list__elem-note--completed') 
                     createButtonActive(todolistElem)
                     buttonCompleted.remove()
                     todolistElem.querySelector('.todo-list__btn-edit').remove()
-                    // buttonCompleted.classList.add('todo-list__btn-completed--press')
+                    
                     completedTodoElemStorage(todolistElem); 
 
 
@@ -291,9 +281,26 @@
                     createEditArea(todolistElem);
 
                 }  else if (target.className == 'todo-list__btn-save'){
+
                     let buttonSave = target;
                    
                     console.log('click save');
+                    
+                    
+
+                    let editArea = todolistElem.querySelector('.todo-list__elem-note--edit')
+                    let text = editArea.value.trim()
+                   
+                        if(text == ''){
+                            console.log('nothing')
+                            editArea.focus()
+                            todolistElem.classList.add('todo-list__elem--error')
+
+                            return false
+                        } else if(text){
+                            todolistElem.classList.remove('todo-list__elem--error')
+                        }
+
                     saveTodoNoteEdited(todolistElem); 
 
                     buttonSave.remove();
@@ -302,6 +309,7 @@
                     editedTodoElemStorage(todolistElem);     
 
                 }  else if (target.className == 'todo-list__btn-active') {
+
                     console.log('click active')
                     let buttonActive = target;
                     todolistElem.dataset.stateElem = 'active';
@@ -314,15 +322,14 @@
                     activeTodoElemStorage(todolistElem);
 
                 } else if (target.className == 'todo-list__btn-return'){
+
                     console.log('click return')
                     console.log('elem return', todolistElem)
                     activeTodoElemStorage(todolistElem);
-                    // todolistElem.classList.add('todo-list__elem--deleted--hidden');
+                   
                     todolistElem.remove();
 
                     deletetButtonClean()
-
-
                 }
 
             }
@@ -339,23 +346,9 @@
                 editArea.style.width = todolistNote.offsetWidth +'px';
                 editArea.style.height = todolistNote.offsetHeight + 40+'px';
 
-
-
                 todolistNote.replaceWith(editArea);
                 editArea.focus();
-                
-               //  editArea.onkeydown= function(e){
-                      
-               //      if(editArea.scrollTop > 0){
-               //          console.log('scrollTop',editArea.scrollTop)
-
-               //          // editArea.style.height = 'auto';
-               //          editArea.style.height = editArea.scrollHeight + 'px';
-        
-               //      }
-                  
-               // }
-                          
+                         
                 console.log('add editArea');
             }
 
@@ -380,7 +373,6 @@
                 console.log('saveobj', todoObj)
             }
 
-
             function completedTodoElemStorage(todoElemCompleted) {
                    
                 let keyElem = todoElemCompleted.dataset.keyObj;
@@ -393,6 +385,7 @@
             }
 
             function activeTodoElemStorage(todoElemActive) {
+
                 console.log(todoElemActive)
                 let keyElem = todoElemActive.dataset.keyObj;
                 console.log('keyElem active:',keyElem)
@@ -418,9 +411,8 @@
 
             }
 
-      
-
             navList.addEventListener('click', function(event){
+
                 let target = event.target.closest('.todo-list__nav-link');
                 if(!target) return;
                 console.log('on filter click ', todoObj);
@@ -431,38 +423,29 @@
                     console.log('click all')
 
                     filterStatusAll();
-
-                    // setCurrentNavLink (target);
                   
-                 
                 } else if(target.dataset.state == 'active') {
                     console.log('starus active')
 
                     filterStatusActive ();
-                    
-                    // setCurrentNavLink (target);
                       
                 } else if(target.dataset.state == 'completed'){
                     console.log('click completed')
 
-                    filterStatusCompleted()
+                    filterStatusCompleted();
                     
-                    // setCurrentNavLink (target);
-
-
                 } else if(target.dataset.state == 'deleted'){
 
                     console.log('click deleted');
 
-                    filterStatusDeleted ()
+                    filterStatusDeleted ();
                     
                 }
                 
             })
 
             function filterStatusAll () {
-
-                
+ 
                 let todoObjAll = {};
 
                 for(let key in todoObj){
@@ -495,6 +478,7 @@
                console.log('objActive', todoObjActive)
                renderTodoList(todoObjActive)
                statusFilter = 'active';
+
                console.log('starus end', statusFilter)
                setNavFilter(statusFilter)
                setCleanButton ()
@@ -517,6 +501,7 @@
                console.log('objCompleted', todoObjCompleted)
                renderTodoList(todoObjCompleted)
                statusFilter = 'completed';
+
                console.log('starus end ', statusFilter)
                setNavFilter(statusFilter)
                setCleanButton ()
@@ -535,38 +520,24 @@
                         todolistElem.classList.add('todo-list__elem--deleted');
                         todolistElem.querySelector('.todo-list__btn-delete').remove();
                         todolistElem.querySelector('.todo-list__btn-completed').remove();
+                        todolistElem.querySelector('.todo-list__btn-edit').remove();
                         createButtonReturn(todolistElem);
 
-
-
-
                         list.append(todolistElem);
-
-                            
+    
                         }
-
-
-
-
-
                 } 
 
-                // if(todolistElem) {
-                //     createButtonClean(todolistElem);
-
-                //     document.querySelector('.todo-list__btn-clean').addEventListener('click', cleanDeleteElem)
-                // }
-
                 statusFilter = 'deleted';
-                console.log('starus end:', statusFilter)
-                setNavFilter(statusFilter)
-                setCleanButton ()
+                console.log('starus end:', statusFilter);
+                setNavFilter(statusFilter);
+                setCleanButton ();
                 
             }
 
 
-
             function createButtonClean(todolistElem) {
+
                 let buttonClean = document.createElement('button');
                 buttonClean.innerHTML = 'clean all';
                 buttonClean.className = 'todo-list__btn-clean';
@@ -576,6 +547,7 @@
             }
 
            function cleanDeleteElem(event) {
+
                 console.log('clean')
                
                 list.innerHTML = '';
@@ -592,40 +564,35 @@
                 console.log('cleaned end', event.target)
 
             }
-
-
-
          
             function  setNavFilter(statusFilter){
-               
 
                 for (let item of navList.querySelectorAll('.todo-list__nav-link--current')) {
                     console.log('current need to deleted', item)
-                    item.classList.remove('todo-list__nav-link--current')
+                    item.classList.remove('todo-list__nav-link--current');
                 }  
 
                 for (let item of navList.querySelectorAll('.todo-list__nav-link')) {
                     // console.log(item)
                     // console.log(item.dataset.state)
                     if(statusFilter == item.dataset.state) {
-                        console.log('we have status :', statusFilter, item.dataset.state)
-                        item.classList.add('todo-list__nav-link--current')
+                        console.log('we have status :', statusFilter, item.dataset.state);
+                        item.classList.add('todo-list__nav-link--current');
                     }
                 }
                
             }
             
             function setCleanButton () {
-                let todolistElemDeleted = document.querySelector('.todo-list__elem--deleted')
+
+                let todolistElemDeleted = document.querySelector('.todo-list__elem--deleted');
+
                 console.log('todolistElemDeleted',todolistElemDeleted)
 
                 if(statusFilter == 'deleted'&& !document.querySelector('.todo-list__btn-clean') && todolistElemDeleted){
                     console.log('have deleted element')
                     createButtonClean(todolistElem);
                     document.querySelector('.todo-list__btn-clean').addEventListener('click', cleanDeleteElem)
-                    
-                   
-
 
                 } else if(statusFilter == 'all'|| statusFilter == 'active'|| statusFilter == 'completed') {
                     if(document.querySelector('.todo-list__btn-clean')){
@@ -636,37 +603,15 @@
            }
 
 
-
+            //if don`t have any todoElements with status deleted , we need to deleted buttonClean`
            function deletetButtonClean() {
-            if(list.innerHTML == "") {
-                console.log('need delete clean')
-                document.querySelector('.todo-list__btn-clean').remove()
-            }
 
-                // if(statusFilter == 'deleted'){
-                //     // for(let key in todoObj){
-                //     //     console.log(todoObj)
-                        
-                //     //     if(todoObj[key].state=='deleted'){
-                //     //         console.log('yed')
-                //     //     }
-                //     // }
+                if(list.innerHTML == "") {
+                    console.log('need delete clean')
+                    document.querySelector('.todo-list__btn-clean').remove();
+                }
 
-                //     if(document.querySelector('todo-list__elem--deleted')){
-                //         console.log('yes elem deleted')
-                //     }
-
-                // }
            }
-
-
-           
-
-          
-
-
-
-
     } 
 
     document.addEventListener( 'DOMContentLoaded',onPageLoaded )
