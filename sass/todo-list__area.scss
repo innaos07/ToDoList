@@ -197,7 +197,7 @@
     resize: none;
     border: none;
     outline: none;
-    overflow: hidden;
+    // overflow: hidden;
 
 }
 
@@ -402,6 +402,7 @@
 }
 
 .todo-list__btn-clean {
+
     box-sizing: border-box ;
     margin: 0;
     padding: 0;
@@ -420,10 +421,9 @@
     vertical-align: middle;
     // text-transform: uppercase;
     cursor: pointer;
-    display: none;
 
 } 
 
-.todo-list__btn-clean--hidden {
-    display: block;
-}
+// .todo-list__btn-clean--hidden {
+//     display: block;
+// }

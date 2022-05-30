@@ -69,9 +69,8 @@
                     console.log('statusFilter are completed or deleted ')
                     
                     list.innerHTML = '';
+                   
                     filterStatusAll();
-
-
                 }
 
                 todolistElem = document.createElement('li');
@@ -178,8 +177,6 @@
             loadTodoListElem();
              
            
-          
-
             function createButtonDeleteElem (todolistElem) {
                 let buttonDelete = document.createElement('button');
                 buttonDelete.className = 'todo-list__btn-delete';
@@ -320,7 +317,12 @@
                     console.log('click return')
                     console.log('elem return', todolistElem)
                     activeTodoElemStorage(todolistElem);
-                     todolistElem.classList.add('todo-list__elem--deleted--hidden')
+                    // todolistElem.classList.add('todo-list__elem--deleted--hidden');
+                    todolistElem.remove();
+
+                    deletetButtonClean()
+
+
                 }
 
             }
@@ -335,24 +337,24 @@
                 editArea.value = todolistNote.textContent;
 
                 editArea.style.width = todolistNote.offsetWidth +'px';
-                editArea.style.height = todolistNote.offsetHeight +'px';
+                editArea.style.height = todolistNote.offsetHeight + 40+'px';
 
 
 
                 todolistNote.replaceWith(editArea);
                 editArea.focus();
                 
-                editArea.onkeydown= function(e){
+               //  editArea.onkeydown= function(e){
                       
-                    if(editArea.scrollTop > 0){
-                        console.log('scrollTop',editArea.scrollTop)
+               //      if(editArea.scrollTop > 0){
+               //          console.log('scrollTop',editArea.scrollTop)
 
-                        // editArea.style.height = 'auto';
-                        editArea.style.height = editArea.scrollHeight + 'px';
+               //          // editArea.style.height = 'auto';
+               //          editArea.style.height = editArea.scrollHeight + 'px';
         
-                    }
+               //      }
                   
-               }
+               // }
                           
                 console.log('add editArea');
             }
@@ -474,6 +476,7 @@
                 statusFilter = 'all';
                 console.log('status end:',statusFilter)
                 setNavFilter(statusFilter)
+                setCleanButton ()
 
             }
 
@@ -494,6 +497,7 @@
                statusFilter = 'active';
                console.log('starus end', statusFilter)
                setNavFilter(statusFilter)
+               setCleanButton ()
 
             }
 
@@ -515,6 +519,7 @@
                statusFilter = 'completed';
                console.log('starus end ', statusFilter)
                setNavFilter(statusFilter)
+               setCleanButton ()
             }
 
             function filterStatusDeleted () {
@@ -537,21 +542,40 @@
 
                         list.append(todolistElem);
 
-                        if(todolistElem) {
-                            let buttonClean = document.querySelector('.todo-list__btn-clean');
+                            
+                        }
 
-                            buttonClean.classList.add('todo-list__btn-clean--hidden');
-                            buttonClean.addEventListener('click', cleanDeleteElem )
-                                                    }
-                    }
+
+
+
+
                 } 
+
+                // if(todolistElem) {
+                //     createButtonClean(todolistElem);
+
+                //     document.querySelector('.todo-list__btn-clean').addEventListener('click', cleanDeleteElem)
+                // }
 
                 statusFilter = 'deleted';
                 console.log('starus end:', statusFilter)
                 setNavFilter(statusFilter)
+                setCleanButton ()
+                
             }
 
-           function cleanDeleteElem() {
+
+
+            function createButtonClean(todolistElem) {
+                let buttonClean = document.createElement('button');
+                buttonClean.innerHTML = 'clean all';
+                buttonClean.className = 'todo-list__btn-clean';
+
+                list.after(buttonClean)
+
+            }
+
+           function cleanDeleteElem(event) {
                 console.log('clean')
                
                 list.innerHTML = '';
@@ -563,11 +587,13 @@
                 todoObj.initialId = 0;
                 console.log('todoObj after cleaned',todoObj) 
                 saveLocalStorage()
+                event.target.remove();
                 
-                document.querySelector('.todo-list__btn-clean').classList.remove('todo-list__btn-clean--hidden')
-                console.log('cleaned end')
+                console.log('cleaned end', event.target)
 
             }
+
+
 
          
             function  setNavFilter(statusFilter){
@@ -589,6 +615,54 @@
                
             }
             
+            function setCleanButton () {
+                let todolistElemDeleted = document.querySelector('.todo-list__elem--deleted')
+                console.log('todolistElemDeleted',todolistElemDeleted)
+
+                if(statusFilter == 'deleted'&& !document.querySelector('.todo-list__btn-clean') && todolistElemDeleted){
+                    console.log('have deleted element')
+                    createButtonClean(todolistElem);
+                    document.querySelector('.todo-list__btn-clean').addEventListener('click', cleanDeleteElem)
+                    
+                   
+
+
+                } else if(statusFilter == 'all'|| statusFilter == 'active'|| statusFilter == 'completed') {
+                    if(document.querySelector('.todo-list__btn-clean')){
+                        document.querySelector('.todo-list__btn-clean').remove()
+                        console.log('delete clean button')
+                    }
+                }
+           }
+
+
+
+           function deletetButtonClean() {
+            if(list.innerHTML == "") {
+                console.log('need delete clean')
+                document.querySelector('.todo-list__btn-clean').remove()
+            }
+
+                // if(statusFilter == 'deleted'){
+                //     // for(let key in todoObj){
+                //     //     console.log(todoObj)
+                        
+                //     //     if(todoObj[key].state=='deleted'){
+                //     //         console.log('yed')
+                //     //     }
+                //     // }
+
+                //     if(document.querySelector('todo-list__elem--deleted')){
+                //         console.log('yes elem deleted')
+                //     }
+
+                // }
+           }
+
+
+           
+
+          
 
 
 
