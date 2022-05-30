@@ -286,7 +286,7 @@
                    
                     console.log('click save');
                     
-                    
+
 
                     let editArea = todolistElem.querySelector('.todo-list__elem-note--edit')
                     let text = editArea.value.trim()
@@ -552,8 +552,11 @@
                
                 list.innerHTML = '';
                     for (let key in todoObj){
-                        console.log(key)
-                        delete todoObj[key];
+                        if(todoObj[key].state == 'deleted'){
+                            
+                            console.log(key)
+                            delete todoObj[key];
+                        }
                     }
 
                 todoObj.initialId = 0;

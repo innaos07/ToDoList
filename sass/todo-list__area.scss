@@ -378,8 +378,10 @@
     box-sizing: border-box ;
     margin: 0;
     padding: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     
     top: 10px;
     border: none;
@@ -393,6 +395,16 @@
     vertical-align: middle;
  
     cursor: pointer;
+
+    &:hover {
+        color: #330685;
+        transition: all 0.3s;
+       
+    }
+    &:active {
+        opacity: 0.8;
+        transition: all 0.3s;
+    }
 
 } 
 
