@@ -408,9 +408,13 @@
 
 } 
 
-.todo-list__elem--error {
+.todo-list__elem--edit {
 
-    animation: shake-bottom 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
     border: 2px solid #2c1a4d;
+}
+
+.todo-list__elem--error {
+    animation: shake-bottom 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+
 }
                        
